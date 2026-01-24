@@ -1,4 +1,4 @@
-# Contributing to Mull
+# Contributing to Mull BNB
 
 Thank you for your interest in contributing to Mull! We welcome contributions from everyone.
 
@@ -19,7 +19,7 @@ Please be respectful and considerate of others. We are committed to providing a 
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/mull.git`
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/mull-bnb.git`
 3. Create a new branch: `git checkout -b feature/your-feature-name`
 4. Make your changes
 5. Push to your fork and submit a pull request
@@ -55,7 +55,11 @@ npm run format
 Create a `.env.local` file in the root directory:
 
 ```env
-# No required environment variables for basic development
+# Optional: WalletConnect Project ID for wallet connections
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
+
+# Optional: BscScan API Key for enhanced transaction data
+BSCSCAN_API_KEY=your_api_key
 ```
 
 ## Code Style
@@ -147,7 +151,7 @@ refactor(components): extract Header into separate component
 
 ## Adding Transaction Types
 
-Mull supports various Sui transaction types. To add a new type:
+Mull supports various BNB Chain transaction types. To add a new type:
 
 ### 1. Update Type Detection
 
@@ -182,13 +186,13 @@ your_type: {
 
 ### 4. Test with Real Transactions
 
-Always test with real transaction digests from both mainnet and testnet.
+Always test with real transaction hashes from both mainnet and testnet.
 
 ## Questions?
 
 Feel free to open an issue or reach out to the maintainers:
 
-- Twitter: [@JihunWeb3](https://x.com/getMullWeb3)
-- GitHub Issues: [mull/issues](https://github.com/leopard627/mull/issues)
+- Twitter: [@getMullWeb3](https://x.com/getMullWeb3)
+- GitHub Issues: [mull-bnb/issues](https://github.com/leopard627/mull-bnb/issues)
 
 Thank you for contributing! 🎨

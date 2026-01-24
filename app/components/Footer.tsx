@@ -36,7 +36,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://github.com/leopard627/mull"
+              href="https://github.com/leopard627/mull-bnb"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-slate-400 transition-colors hover:text-slate-600 dark:hover:text-slate-300"
@@ -99,7 +99,7 @@ export function Footer() {
                   <span>@getMullWeb3</span>
                 </a>
                 <a
-                  href="https://github.com/leopard627/mull"
+                  href="https://github.com/leopard627/mull-bnb"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-300"

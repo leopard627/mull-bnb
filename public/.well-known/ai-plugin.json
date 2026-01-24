@@ -1,17 +1,17 @@
 {
   "schema_version": "v1",
-  "name_for_human": "Mull - Sui Transaction Explainer",
-  "name_for_model": "mull_sui_transaction_explainer",
-  "description_for_human": "Explains Sui blockchain transactions in plain language. Understand transfers, swaps, staking, NFTs, and more.",
-  "description_for_model": "Mull is a web application that explains Sui blockchain transactions in human-readable language. It supports 30+ transaction types including transfers, swaps, staking, NFTs, DeFi lending, bridges, and smart contracts. Users can paste a transaction digest to get a clear breakdown of what happened, including sender/recipient addresses, amounts, gas fees, and object changes. Supports both Sui Mainnet and Testnet.",
+  "name_for_human": "Mull - BNB Chain Transaction Explainer",
+  "name_for_model": "mull_bnb_transaction_explainer",
+  "description_for_human": "Explains BNB Chain blockchain transactions in plain language. Understand transfers, swaps, staking, NFTs, and more.",
+  "description_for_model": "Mull is a web application that explains BNB Chain blockchain transactions in human-readable language. It supports 30+ transaction types including transfers, swaps, staking, NFTs, DeFi lending, bridges, and smart contracts. Users can paste a transaction hash to get a clear breakdown of what happened, including sender/recipient addresses, amounts, gas fees, and token transfers. Supports both BNB Chain Mainnet and Testnet.",
   "auth": {
     "type": "none"
   },
   "api": {
     "type": "openapi",
-    "url": "https://mull.vercel.app/api/openapi.json"
+    "url": "https://bnb.mull.live/api/openapi.json"
   },
-  "logo_url": "https://mull.vercel.app/logo.png",
-  "contact_email": "jihunweb3@example.com",
-  "legal_info_url": "https://github.com/leopard627/mull/blob/main/LICENSE"
+  "logo_url": "https://bnb.mull.live/logo.png",
+  "contact_email": "ali@alpsoft.io",
+  "legal_info_url": "https://github.com/leopard627/mull-bnb/blob/main/LICENSE"
 }

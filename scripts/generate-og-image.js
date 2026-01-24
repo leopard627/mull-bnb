@@ -55,7 +55,7 @@ async function generateOGImage() {
   ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
   ctx.font = "600 42px system-ui, sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText("Sui Transaction Explainer", width / 2, height / 2 + 80);
+  ctx.fillText("BNB Chain Transaction Explainer", width / 2, height / 2 + 80);
 
   // Feature tags
   const tags = ["Transfers", "Swaps", "Staking", "NFTs", "DeFi"];

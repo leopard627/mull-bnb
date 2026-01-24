@@ -1,67 +1,60 @@
-# Mull - Sui Transaction Explainer
+# Mull - BNB Chain Transaction Explainer
 
-> Mull is a free, open-source web application that explains Sui blockchain transactions in plain, human-readable language.
+> Mull is a free, open-source web application that explains BNB Chain blockchain transactions in plain, human-readable language.
 
 ## What is Mull?
 
-Mull (Korean for "water" - matching Sui's water theme) is a transaction explainer for the Sui blockchain. It takes complex blockchain transaction data and converts it into easy-to-understand summaries that anyone can read.
+Mull is a transaction explainer for the BNB Chain blockchain. It takes complex blockchain transaction data and converts it into easy-to-understand summaries that anyone can read.
 
 ## Key Features
 
 - **Plain Language Explanations**: Converts technical transaction data into simple summaries
 - **Visual Flow Diagrams**: Shows token and NFT movements graphically
 - **Comprehensive Details**: Gas fees, object changes, balance impacts all in one place
-- **Network Support**: Works with both Sui Mainnet and Testnet
+- **Network Support**: Works with both BNB Chain Mainnet and Testnet
 - **30+ Transaction Types**: Supports transfers, swaps, staking, NFTs, DeFi, bridges, and more
 
 ## Supported Transaction Types
 
 ### Basic Operations
-- SUI and token transfers
-- Coin merging and splitting
-- Object creation and deletion
+- BNB and BEP-20 token transfers
+- Token approvals
+- Contract interactions
 
 ### DeFi
-- Token swaps (Cetus, Turbos, DeepBook, etc.)
+- Token swaps (PancakeSwap, Uniswap, 1inch, etc.)
 - Liquidity provision and removal
 - Staking and unstaking
-- Lending operations (borrow, supply, repay, withdraw)
+- Lending operations (Venus, Alpaca Finance, etc.)
 - Liquidations
 
 ### NFTs
 - NFT transfers
 - NFT minting and burning
-- Marketplace operations (listing, purchasing, offers)
-- Kiosk operations
+- Marketplace operations (OpenSea, Element, etc.)
 
 ### Advanced
 - Smart contract deployments
-- Package upgrades
-- Bridge transactions (Wormhole, etc.)
-- SuiNS domain registrations
+- Bridge transactions (LayerZero, Wormhole, Celer, etc.)
 - Governance voting
 - Multisig operations
 
 ## How to Use
 
-1. Visit https://mull.vercel.app
-2. Paste a Sui transaction digest (hash) in the search box
+1. Visit https://bnb.mull.live
+2. Paste a BNB Chain transaction hash in the search box
 3. Select your network (Mainnet or Testnet)
 4. Click "Explain" to see the transaction breakdown
 
 ## Technical Details
 
 - Built with Next.js 16 and React 19
-- Uses @mysten/sui SDK for blockchain interaction
+- Uses viem and wagmi for blockchain interaction
 - Open source under MIT License
-- GitHub: https://github.com/leopard627/mull
-
-## Creator
-
-Built by JihunWeb3 (@JihunWeb3 on X/Twitter) for the Sui Foundation RFP Program.
+- GitHub: https://github.com/leopard627/mull-bnb
 
 ## Links
 
-- Website: https://mull.vercel.app
-- GitHub: https://github.com/leopard627/mull
-- Creator: https://x.com/getMullWeb3
+- Website: https://bnb.mull.live
+- GitHub: https://github.com/leopard627/mull-bnb
+- Twitter: https://x.com/getMullWeb3

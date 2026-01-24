@@ -2,23 +2,23 @@
   <img src="public/logo.png" alt="Mull Logo" width="200" />
 </p>
 
-<h1 align="center">Mull - Sui Transaction Explainer</h1>
+<h1 align="center">Mull - BNB Chain Transaction Explainer</h1>
 
 <p align="center">
-  <strong>"Mull" means "water" in Korean, perfectly matching Sui's water theme.</strong>
+  <strong>Adding colors to the monotonous world of blockchain transactions.</strong>
 </p>
 
 <p align="center">
-  <a href="https://github.com/leopard627/mull/actions/workflows/ci.yml">
-    <img src="https://github.com/leopard627/mull/actions/workflows/ci.yml/badge.svg" alt="CI" />
+  <a href="https://github.com/leopard627/mull-bnb/actions/workflows/ci.yml">
+    <img src="https://github.com/leopard627/mull-bnb/actions/workflows/ci.yml/badge.svg" alt="CI" />
   </a>
-  <a href="https://github.com/leopard627/mull/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/leopard627/mull" alt="License" />
+  <a href="https://github.com/leopard627/mull-bnb/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/leopard627/mull-bnb" alt="License" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://mull.live">Live Demo</a> •
+  <a href="https://bnb.mull.live">Live Demo</a> •
   <a href="https://x.com/getMullWeb3">Twitter</a> •
   <a href="#features">Features</a> •
   <a href="#getting-started">Getting Started</a>
@@ -38,34 +38,37 @@ Our goal is simple: **Make blockchain transactions accessible to everyone**, whe
 
 ---
 
-Mull is a user-friendly web app that takes a Sui transaction digest and explains in plain language what actually happened.
+Mull is a user-friendly web app that takes a BNB Chain transaction hash and explains in plain language what actually happened.
 
 ## Features
 
-- **Human-readable explanations**: Transforms complex transaction data into simple summaries like "Alice transferred 10 SUI to Bob"
+- **Human-readable explanations**: Transforms complex transaction data into simple summaries like "Alice transferred 10 BNB to Bob"
 - **Visual flow diagrams**: See the flow of assets with sender → recipient arrows
 - **Multi-network support**: Works with both Mainnet and Testnet
 - **Transaction type detection**: Automatically identifies transfers, swaps, mints, staking, and more
-- **Move call details**: Clear labels for packages, modules, and functions involved
+- **Contract call details**: Clear labels for contracts and functions involved
 - **Gas breakdown**: See exactly how much gas was used
+- **Wallet connection**: Connect your wallet to view your transaction history
 
 ## Supported Transaction Types
 
 | Type | Example Summary |
 |------|----------------|
-| Transfer | "0x1a2b... transferred 0.5 SUI to 0x3c4d..." |
-| NFT Transfer | "0x1a2b... transferred Suifrens #1234 to 0x3c4d..." |
-| DEX Swap | "0x1a2b... swapped 100 USDC for 50 SUI on Cetus" |
-| Mint | "0x1a2b... minted a new NFT" |
-| Stake | "0x1a2b... staked 100 SUI" |
-| Package Publish | "0x1a2b... deployed a new Move package" |
+| Transfer | "0x1a2b... transferred 0.5 BNB to 0x3c4d..." |
+| Token Transfer | "0x1a2b... transferred 100 USDT to 0x3c4d..." |
+| DEX Swap | "0x1a2b... swapped 100 USDC for 50 BNB on PancakeSwap" |
+| Approval | "0x1a2b... approved unlimited USDT for PancakeSwap" |
+| Liquidity | "0x1a2b... added liquidity to BNB/USDT pool" |
+| Stake | "0x1a2b... staked 100 CAKE" |
+| Bridge | "0x1a2b... bridged 1 ETH to Ethereum via LayerZero" |
+| Contract Deploy | "0x1a2b... deployed a new smart contract" |
 
 ## Tech Stack
 
 - **Framework**: Next.js 16 with App Router
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
-- **Blockchain SDK**: @mysten/sui
+- **Blockchain**: viem, wagmi, RainbowKit
 
 ## Getting Started
 
@@ -78,8 +81,8 @@ Mull is a user-friendly web app that takes a Sui transaction digest and explains
 
 ```bash
 # Clone the repository
-git clone https://github.com/leopard627/mull.git
-cd mull
+git clone https://github.com/leopard627/mull-bnb.git
+cd mull-bnb
 
 # Install dependencies
 npm install
@@ -90,42 +93,61 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+### Environment Variables (Optional)
+
+Create a `.env.local` file:
+
+```env
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
+BSCSCAN_API_KEY=your_api_key
+```
+
 ### Usage
 
-1. Paste a Sui transaction digest (hash) into the input field
+1. Paste a BNB Chain transaction hash into the input field
 2. Select the network (Mainnet or Testnet)
 3. Click "Explain" to see the transaction breakdown
-4. Use "Explain Another" to analyze more transactions
+4. Connect your wallet to view your transaction history
 
 ## Architecture
 
 ```
 app/
 ├── page.tsx                    # Main page
-├── api/transaction/[digest]/   # API route for fetching transactions
-└── components/                 # React components
-    ├── TransactionInput.tsx    # Input field + network selector
-    ├── TransactionExplainer.tsx # Main container
-    ├── TransactionSummary.tsx  # Human-readable summary
-    ├── TransactionFlow.tsx     # Visual flow diagram
-    └── ...
+├── layout.tsx                  # Root layout with metadata
+├── api/                        # API routes
+│   ├── transaction/[digest]/   # Transaction data endpoint
+│   ├── transactions/recent/    # Recent transactions endpoint
+│   └── stats/                  # Network stats endpoint
+├── components/                 # React components
+│   ├── TransactionInput.tsx    # Input field + network selector
+│   ├── TransactionExplainer.tsx # Main container
+│   ├── TransactionSummary.tsx  # Human-readable summary
+│   ├── TransactionFlow.tsx     # Visual flow diagram (React Flow)
+│   ├── BalanceChanges.tsx      # Token balance changes
+│   ├── ConnectWallet.tsx       # Wallet connection button
+│   └── ...
+└── providers/
+    └── WalletProvider.tsx      # Wagmi + RainbowKit provider
 
 lib/
-├── sui-client.ts              # Sui RPC client
-├── explanation-engine.ts      # Template-based explanation generator
-├── known-packages.ts          # Well-known package registry
+├── bnb-client.ts              # BNB Chain RPC client (viem)
+├── explanation-engine.ts      # Transaction parsing & explanation
+├── known-packages.ts          # Known DEX/Protocol registry
+├── token-images.ts            # Token metadata & images
+├── format-utils.ts            # Formatting utilities
 └── types.ts                   # TypeScript interfaces
 ```
 
 ## Data Sources
 
-- **Sui RPC**: Transaction data is fetched directly from Sui's public RPC endpoints
-  - Mainnet: `https://fullnode.mainnet.sui.io`
-  - Testnet: `https://fullnode.testnet.sui.io`
+- **BNB Chain RPC**: Transaction data is fetched from public RPC endpoints
+  - Mainnet: `https://bsc-dataseed.binance.org`
+  - Testnet: `https://data-seed-prebsc-1-s1.binance.org:8545`
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
@@ -133,5 +155,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Built for the [Sui Foundation RFP Program](https://sui.io/)
+- Built with love for the BNB Chain ecosystem
 - Inspired by the need for better blockchain UX
