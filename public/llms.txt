@@ -1,0 +1,67 @@
+# Mull - Sui Transaction Explainer
+
+> Mull is a free, open-source web application that explains Sui blockchain transactions in plain, human-readable language.
+
+## What is Mull?
+
+Mull (Korean for "water" - matching Sui's water theme) is a transaction explainer for the Sui blockchain. It takes complex blockchain transaction data and converts it into easy-to-understand summaries that anyone can read.
+
+## Key Features
+
+- **Plain Language Explanations**: Converts technical transaction data into simple summaries
+- **Visual Flow Diagrams**: Shows token and NFT movements graphically
+- **Comprehensive Details**: Gas fees, object changes, balance impacts all in one place
+- **Network Support**: Works with both Sui Mainnet and Testnet
+- **30+ Transaction Types**: Supports transfers, swaps, staking, NFTs, DeFi, bridges, and more
+
+## Supported Transaction Types
+
+### Basic Operations
+- SUI and token transfers
+- Coin merging and splitting
+- Object creation and deletion
+
+### DeFi
+- Token swaps (Cetus, Turbos, DeepBook, etc.)
+- Liquidity provision and removal
+- Staking and unstaking
+- Lending operations (borrow, supply, repay, withdraw)
+- Liquidations
+
+### NFTs
+- NFT transfers
+- NFT minting and burning
+- Marketplace operations (listing, purchasing, offers)
+- Kiosk operations
+
+### Advanced
+- Smart contract deployments
+- Package upgrades
+- Bridge transactions (Wormhole, etc.)
+- SuiNS domain registrations
+- Governance voting
+- Multisig operations
+
+## How to Use
+
+1. Visit https://mull.vercel.app
+2. Paste a Sui transaction digest (hash) in the search box
+3. Select your network (Mainnet or Testnet)
+4. Click "Explain" to see the transaction breakdown
+
+## Technical Details
+
+- Built with Next.js 16 and React 19
+- Uses @mysten/sui SDK for blockchain interaction
+- Open source under MIT License
+- GitHub: https://github.com/leopard627/mull
+
+## Creator
+
+Built by JihunWeb3 (@JihunWeb3 on X/Twitter) for the Sui Foundation RFP Program.
+
+## Links
+
+- Website: https://mull.vercel.app
+- GitHub: https://github.com/leopard627/mull
+- Creator: https://x.com/getMullWeb3
