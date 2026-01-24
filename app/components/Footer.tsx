@@ -25,6 +25,17 @@ export function Footer() {
           {/* Social Links */}
           <div className="flex items-center gap-3">
             <a
+              href="https://bnb.mull.live"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1.5 text-xs font-medium text-amber-700 transition-colors hover:bg-amber-200 dark:bg-amber-900/50 dark:text-amber-400 dark:hover:bg-amber-900"
+            >
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L7.5 4.5 12 9l4.5-4.5L12 0zM4.5 7.5L0 12l4.5 4.5L9 12l-4.5-4.5zM19.5 7.5L15 12l4.5 4.5L24 12l-4.5-4.5zM12 15l-4.5 4.5L12 24l4.5-4.5L12 15z" />
+              </svg>
+              BNB Chain
+            </a>
+            <a
               href="https://x.com/getMullWeb3"
               target="_blank"
               rel="noopener noreferrer"
@@ -87,6 +98,17 @@ export function Footer() {
             <div className="flex items-center gap-6">
               {/* Social Links */}
               <div className="flex items-center gap-1">
+                <a
+                  href="https://bnb.mull.live"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg bg-amber-100 px-3 py-2 text-sm font-medium text-amber-700 transition-colors hover:bg-amber-200 dark:bg-amber-900/50 dark:text-amber-400 dark:hover:bg-amber-900"
+                >
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0L7.5 4.5 12 9l4.5-4.5L12 0zM4.5 7.5L0 12l4.5 4.5L9 12l-4.5-4.5zM19.5 7.5L15 12l4.5 4.5L24 12l-4.5-4.5zM12 15l-4.5 4.5L12 24l4.5-4.5L12 15z" />
+                  </svg>
+                  <span>BNB Chain</span>
+                </a>
                 <a
                   href="https://x.com/getMullWeb3"
                   target="_blank"
