@@ -25,6 +25,17 @@ export function Footer() {
           {/* Social Links */}
           <div className="flex items-center gap-3">
             <a
+              href="https://mull.live"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 rounded-full bg-cyan-100 px-3 py-1.5 text-xs font-medium text-cyan-700 transition-colors hover:bg-cyan-200 dark:bg-cyan-900/50 dark:text-cyan-400 dark:hover:bg-cyan-900"
+            >
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+              </svg>
+              Sui
+            </a>
+            <a
               href="https://bnb.mull.live"
               target="_blank"
               rel="noopener noreferrer"
@@ -33,7 +44,7 @@ export function Footer() {
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 0L7.5 4.5 12 9l4.5-4.5L12 0zM4.5 7.5L0 12l4.5 4.5L9 12l-4.5-4.5zM19.5 7.5L15 12l4.5 4.5L24 12l-4.5-4.5zM12 15l-4.5 4.5L12 24l4.5-4.5L12 15z" />
               </svg>
-              BNB Chain
+              BNB
             </a>
             <a
               href="https://x.com/getMullWeb3"
@@ -99,6 +110,17 @@ export function Footer() {
               {/* Social Links */}
               <div className="flex items-center gap-1">
                 <a
+                  href="https://mull.live"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg bg-cyan-100 px-3 py-2 text-sm font-medium text-cyan-700 transition-colors hover:bg-cyan-200 dark:bg-cyan-900/50 dark:text-cyan-400 dark:hover:bg-cyan-900"
+                >
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                  </svg>
+                  <span>Sui</span>
+                </a>
+                <a
                   href="https://bnb.mull.live"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -107,7 +129,7 @@ export function Footer() {
                   <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0L7.5 4.5 12 9l4.5-4.5L12 0zM4.5 7.5L0 12l4.5 4.5L9 12l-4.5-4.5zM19.5 7.5L15 12l4.5 4.5L24 12l-4.5-4.5zM12 15l-4.5 4.5L12 24l4.5-4.5L12 15z" />
                   </svg>
-                  <span>BNB Chain</span>
+                  <span>BNB</span>
                 </a>
                 <a
                   href="https://x.com/getMullWeb3"
