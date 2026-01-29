@@ -1,13 +1,24 @@
 /**
- * Parse explorer URLs to extract transaction hash and network
+ * Parse explorer URLs to extract transaction hash or address and network
  *
  * Supported URL formats:
  * - BSCScan mainnet: https://bscscan.com/tx/HASH
  * - BSCScan testnet: https://testnet.bscscan.com/tx/HASH
+ * - BSCScan mainnet address: https://bscscan.com/address/ADDRESS
+ * - BSCScan testnet address: https://testnet.bscscan.com/address/ADDRESS
  */
 
 import type { Network } from "./types";
 
+export type InputType = "transaction" | "address";
+
+export interface ParsedInput {
+  value: string;
+  network: Network;
+  type: InputType;
+}
+
+// Legacy interface for backward compatibility
 export interface ParsedUrl {
   digest: string;
   network: Network;
@@ -30,26 +41,43 @@ export function isValidDigest(input: string): boolean {
 }
 
 /**
+ * Check if a string looks like a valid EVM address
+ * EVM addresses are 42 characters (0x + 40 hex chars)
+ */
+export function isValidAddress(input: string): boolean {
+  const addressRegex = /^0x[a-fA-F0-9]{40}$/;
+  return addressRegex.test(input);
+}
+
+/**
  * Parse a BSCScan URL
  * Formats:
- * - Mainnet: https://bscscan.com/tx/{hash}
- * - Testnet: https://testnet.bscscan.com/tx/{hash}
+ * - Mainnet tx: https://bscscan.com/tx/{hash}
+ * - Testnet tx: https://testnet.bscscan.com/tx/{hash}
+ * - Mainnet address: https://bscscan.com/address/{address}
+ * - Testnet address: https://testnet.bscscan.com/address/{address}
  */
-function parseBscScanUrl(url: URL): ParsedUrl | null {
+function parseBscScanUrl(url: URL): ParsedInput | null {
   // Check if it's bscscan.com
   if (!url.hostname.includes("bscscan.com")) return null;
 
   // Determine network from subdomain
   const network: Network = url.hostname.startsWith("testnet.") ? "testnet" : "mainnet";
 
-  // Path format: /tx/{hash}
+  // Path format: /tx/{hash} or /address/{address}
   const pathParts = url.pathname.split("/").filter(Boolean);
 
-  if (pathParts.length >= 2 && pathParts[0] === "tx") {
-    const hash = pathParts[1];
-
-    if (isValidDigest(hash)) {
-      return { digest: hash, network };
+  if (pathParts.length >= 2) {
+    if (pathParts[0] === "tx") {
+      const hash = pathParts[1];
+      if (isValidDigest(hash)) {
+        return { value: hash, network, type: "transaction" };
+      }
+    } else if (pathParts[0] === "address") {
+      const address = pathParts[1];
+      if (isValidAddress(address)) {
+        return { value: address, network, type: "address" };
+      }
     }
   }
 
@@ -57,13 +85,13 @@ function parseBscScanUrl(url: URL): ParsedUrl | null {
 }
 
 /**
- * Parse input that could be a URL or a raw hash
- * Returns the hash and detected network
+ * Parse input that could be a URL, raw hash, or address
+ * Returns the value, detected network, and input type
  */
-export function parseTransactionInput(
+export function parseInput(
   input: string,
   defaultNetwork: Network = "mainnet"
-): ParsedUrl | null {
+): ParsedInput | null {
   const trimmed = input.trim();
 
   if (!trimmed) return null;
@@ -85,9 +113,37 @@ export function parseTransactionInput(
     }
   }
 
-  // Try as raw hash
+  // Try as raw transaction hash (66 chars: 0x + 64 hex)
   if (isValidDigest(trimmed)) {
-    return { digest: trimmed, network: defaultNetwork };
+    return { value: trimmed, network: defaultNetwork, type: "transaction" };
+  }
+
+  // Try as raw address (42 chars: 0x + 40 hex)
+  if (isValidAddress(trimmed)) {
+    return { value: trimmed, network: defaultNetwork, type: "address" };
+  }
+
+  return null;
+}
+
+/**
+ * Parse input that could be a URL or a raw hash (legacy function for backward compatibility)
+ * Returns the hash and detected network
+ */
+export function parseTransactionInput(
+  input: string,
+  defaultNetwork: Network = "mainnet"
+): ParsedUrl | null {
+  const result = parseInput(input, defaultNetwork);
+
+  if (result && result.type === "transaction") {
+    return { digest: result.value, network: result.network };
+  }
+
+  // For backward compatibility, also return addresses as digests
+  // This allows the existing code to handle addresses
+  if (result && result.type === "address") {
+    return { digest: result.value, network: result.network };
   }
 
   return null;

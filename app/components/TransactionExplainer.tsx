@@ -18,6 +18,7 @@ import { RecentTransactions } from "./RecentTransactions";
 import { UserTransactions } from "./UserTransactions";
 import { SearchHistory } from "./SearchHistory";
 import { saveToHistory, updateHistoryItem } from "@/lib/search-history";
+import { parseInput, type InputType } from "@/lib/url-parser";
 
 interface ApiResponse {
   success?: boolean;
@@ -37,22 +38,29 @@ export function TransactionExplainer() {
     (searchParams.get("network") as Network) || "mainnet"
   );
   const [lastDigest, setLastDigest] = useState<string>(searchParams.get("tx") || "");
+  const [searchedAddress, setSearchedAddress] = useState<string | null>(
+    searchParams.get("address") || null
+  );
 
-  // Determine if we should show the detail view (has transaction, error, or is loading)
-  const showDetailView = transaction || error || isLoading;
+  // Determine if we should show the detail view (has transaction, error, is loading, or searching address)
+  const showDetailView = transaction || error || isLoading || searchedAddress;
 
-  // Initial load: fetch transaction from URL if present
+  // Initial load: fetch transaction or address from URL if present
   const initialLoadDone = useRef(false);
   useEffect(() => {
     if (initialLoadDone.current) return;
     initialLoadDone.current = true;
 
     const txFromUrl = searchParams.get("tx");
+    const addressFromUrl = searchParams.get("address");
     const networkFromUrl = (searchParams.get("network") as Network) || "mainnet";
 
     if (txFromUrl) {
       setCurrentNetwork(networkFromUrl);
       fetchTransactionInternal(txFromUrl, networkFromUrl);
+    } else if (addressFromUrl) {
+      setCurrentNetwork(networkFromUrl);
+      setSearchedAddress(addressFromUrl);
     }
   }, []);
 
@@ -105,7 +113,29 @@ export function TransactionExplainer() {
   };
 
   const fetchTransaction = useCallback(
-    async (digest: string, network: Network) => {
+    async (input: string, network: Network) => {
+      // Parse input to determine if it's a transaction or address
+      const parsed = parseInput(input, network);
+
+      if (parsed?.type === "address") {
+        // Handle address search
+        setSearchedAddress(parsed.value);
+        setLastDigest("");
+        setTransaction(null);
+        setError(null);
+        setCurrentNetwork(parsed.network);
+
+        // Update URL with the address
+        const params = new URLSearchParams();
+        params.set("address", parsed.value);
+        params.set("network", parsed.network);
+        router.push(`?${params.toString()}`);
+        return;
+      }
+
+      // Handle transaction
+      const digest = parsed?.value || input;
+      setSearchedAddress(null);
       setLastDigest(digest);
       setCurrentNetwork(network);
 
@@ -137,6 +167,7 @@ export function TransactionExplainer() {
     setTransaction(null);
     setError(null);
     setLastDigest("");
+    setSearchedAddress(null);
     // Clear URL params
     router.push("/");
   };
@@ -497,8 +528,20 @@ export function TransactionExplainer() {
           </div>
         )}
 
+        {/* Address Search Results */}
+        {searchedAddress && !isLoading && (
+          <div className="animate-fade-in mx-auto mt-8 max-w-4xl">
+            <UserTransactions
+              network={currentNetwork}
+              onSelectTransaction={(digest) => fetchTransaction(digest, currentNetwork)}
+              externalAddress={searchedAddress}
+              onBack={handleReset}
+            />
+          </div>
+        )}
+
         {/* Error Display */}
-        {error && !isLoading && (
+        {error && !isLoading && !searchedAddress && (
           <div className="animate-fade-in mt-8">
             <ErrorDisplay error={error} onRetry={handleRetry} />
           </div>

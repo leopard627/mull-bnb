@@ -19,6 +19,8 @@ interface UserTransaction {
 interface UserTransactionsProps {
   network: Network;
   onSelectTransaction: (digest: string) => void;
+  externalAddress?: string; // Optional: show transactions for a specific address without wallet connection
+  onBack?: () => void; // Optional: callback when user wants to go back
 }
 
 const typeConfig: Record<string, { icon: string; color: string; bgColor: string }> = {
@@ -83,8 +85,17 @@ function formatTimeAgo(timestamp: string | null): string {
   return `${days}d ago`;
 }
 
-export function UserTransactions({ network, onSelectTransaction }: UserTransactionsProps) {
-  const { address, isConnected } = useAccount();
+export function UserTransactions({
+  network,
+  onSelectTransaction,
+  externalAddress,
+  onBack,
+}: UserTransactionsProps) {
+  const { address: walletAddress, isConnected } = useAccount();
+
+  // Use external address if provided, otherwise use connected wallet address
+  const address = externalAddress || walletAddress;
+  const isExternalSearch = !!externalAddress;
   const [transactions, setTransactions] = useState<UserTransaction[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -168,8 +179,12 @@ export function UserTransactions({ network, onSelectTransaction }: UserTransacti
     }
   };
 
-  // Don't render if no wallet connected
-  if (!isConnected || !address) {
+  // Don't render if no address (either from wallet or external)
+  if (!isExternalSearch && (!isConnected || !address)) {
+    return null;
+  }
+
+  if (!address) {
     return null;
   }
 
@@ -273,6 +288,22 @@ export function UserTransactions({ network, onSelectTransaction }: UserTransacti
       <div className="border-b border-amber-100 bg-gradient-to-r from-amber-50 to-orange-50 px-4 py-3 dark:border-amber-800/50 dark:from-amber-900/30 dark:to-orange-900/30">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
+            {isExternalSearch && onBack && (
+              <button
+                onClick={onBack}
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-amber-600 transition-colors hover:bg-amber-100 dark:text-amber-400 dark:hover:bg-amber-900/50"
+                title="Back"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
+              </button>
+            )}
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/50">
               <svg
                 className="h-4 w-4 text-amber-600 dark:text-amber-400"
@@ -289,7 +320,7 @@ export function UserTransactions({ network, onSelectTransaction }: UserTransacti
               </svg>
             </div>
             <h3 className="text-sm font-semibold text-amber-700 dark:text-amber-300">
-              My Transactions
+              {isExternalSearch ? "Address Transactions" : "My Transactions"}
             </h3>
             <code className="rounded bg-amber-100 px-2 py-0.5 text-xs text-amber-600 dark:bg-amber-900/50 dark:text-amber-400">
               {shortenAddress(address, 6)}
