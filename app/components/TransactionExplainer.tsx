@@ -18,7 +18,7 @@ import { RecentTransactions } from "./RecentTransactions";
 import { UserTransactions } from "./UserTransactions";
 import { SearchHistory } from "./SearchHistory";
 import { saveToHistory, updateHistoryItem } from "@/lib/search-history";
-import { parseInput, type InputType } from "@/lib/url-parser";
+import { parseInput } from "@/lib/url-parser";
 
 interface ApiResponse {
   success?: boolean;
