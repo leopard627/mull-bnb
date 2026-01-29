@@ -88,10 +88,7 @@ function parseBscScanUrl(url: URL): ParsedInput | null {
  * Parse input that could be a URL, raw hash, or address
  * Returns the value, detected network, and input type
  */
-export function parseInput(
-  input: string,
-  defaultNetwork: Network = "mainnet"
-): ParsedInput | null {
+export function parseInput(input: string, defaultNetwork: Network = "mainnet"): ParsedInput | null {
   const trimmed = input.trim();
 
   if (!trimmed) return null;
